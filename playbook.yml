@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  vars_files:
+    - variables.yml
+    - secrets.yml
+  roles:
+    - geerlingguy.docker
+    - lando
+    - geerlingguy.swap
+    - geerlingguy.php-versions
+    - geerlingguy.php
+    - geerlingguy.composer
+    - geerlingguy.nodejs
+    - secure
+    - pallxk.code_server
+    - oefenweb.fail2ban
+    - gantsign.oh-my-zsh
+    - starship
+    - dotfiles
+    - terminus
+    - cleanup
+    - geerlingguy.firewall
+    - cyberteam

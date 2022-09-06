@@ -1,0 +1,30 @@
+---
+- name: Update and upgrade apt packages
+  become: true
+  apt:
+    upgrade: yes
+    update_cache: yes
+- name: restart docker deamon
+  service:
+    name: docker
+    state: restarted
+- name: install zip
+  ansible.builtin.package:
+    name:
+      - zip
+      - python3-dev
+      - python3-pip
+    state: present
+- name: Install pip package
+  command: pip3 install thefuck
+- name: Install blt
+  ansible.builtin.get_url:
+    url: https://github.com/acquia/blt-launcher/releases/latest/download/blt.phar
+    dest: /usr/local/bin/blt
+    mode: 'u+x'
+- name:
+  ansible.builtin.shell:
+    cmd: |
+      git config --global core.editor "{{ git_core_editor }}"
+  become: yes
+  become_user: "{{ new_user }}"

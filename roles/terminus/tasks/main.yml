@@ -1,0 +1,20 @@
+---
+- name: Check for terminus
+  stat:
+    path: /usr/local/bin/terminus
+  register: register_terminus
+- name: Grab terminus
+  ansible.builtin.get_url:
+    url: https://github.com/pantheon-systems/terminus/releases/download/3.0.7/terminus.phar
+    dest: /usr/local/bin/terminus
+    mode: '+x'
+  when: not register_terminus.stat.exists
+- name: Run update
+  ansible.builtin.shell:
+    cmd: terminus self:update
+- name: Create terminus Login script to run on initial login
+  ansible.builtin.shell:
+    cmd: |
+      terminus auth:login --email={{ terminus_email }} --machine-token={{ terminus_api }}
+  become: yes
+  become_user: "{{ new_user }}"

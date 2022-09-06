@@ -1,0 +1,13 @@
+---
+roles:
+  - geerlingguy.swap
+  - geerlingguy.docker
+  - geerlingguy.dotfiles
+  - geerlingguy.nodejs
+  - geerlingguy.php
+  - geerlingguy.php-versions
+  - geerlingguy.composer
+  - geerlingguy.firewall
+  - pallxk.code_server
+  - oefenweb.fail2ban
+  - gantsign.oh-my-zsh

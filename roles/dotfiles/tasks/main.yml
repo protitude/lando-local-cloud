@@ -1,0 +1,20 @@
+---
+- name: Check for dotfiles
+  stat:
+    path: /home/{{ new_user }}/dotfiles/
+  register: register_dotfiles
+- name: Clone a github repository
+  git:
+    repo: https://github.com/protitude/dotfiles_cs.git
+    dest: /home/{{ new_user }}/dotfiles/
+    clone: yes
+    update: yes
+  when: not register_dotfiles.stat.exists
+- name: Check if dotfiles have ran
+  stat:
+    path: /home/{{ new_user }}/dotfiles/.vim/bundle
+  register: register_dotfiles_bundle
+- name: Run setup script in dotfiles
+  ansible.builtin.shell:
+    cmd: chown -R {{ new_user }}:{{ new_user }} /home/{{ new_user }}/dotfiles && echo /home/{{ new_user}}/dotfiles/setup.sh lando >> /home/{{ new_user }}/.zshrc
+  when: not register_dotfiles_bundle.stat.exists

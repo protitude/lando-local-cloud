@@ -1,0 +1,43 @@
+---
+swap_file_size_mb: "4096"
+
+nodejs_version: "16.x"
+git_core_editor: vim
+# nodejs_npm_global_packages:
+#   - yarn
+#   - gulp-cli
+
+code_server_password: "{{ upassword }}"
+code_server_user: "{{ new_user }}"
+code_server_port: "8080"
+
+php_version: '7.4'
+php_enable_webserver: false
+php_packages:
+  - php{{ php_version }}-common
+  - php{{ php_version }}-cli
+  - php{{ php_version }}-dev
+  - libpcre3-dev
+  - php{{ php_version }}-curl
+  - php{{ php_version }}-gd
+  - php{{ php_version }}-imap
+  - php{{ php_version }}-json
+  - php{{ php_version }}-opcache
+  - php{{ php_version }}-xml
+  - php{{ php_version }}-mbstring
+  - php{{ php_version }}-apcu
+  - php{{ php_version }}-bcmath
+  - php{{ php_version }}-bz2
+  - php{{ php_version }}-readline
+  - php{{ php_version }}-xsl
+  - php{{ php_version }}-zip
+
+firewall_allowed_tcp_ports:
+  - "22"
+firewall_allowed_udp_ports: []
+firewall_state: started
+firewall_enabled_at_boot: true
+
+users:
+  - username: root
+  - username: "{{ new_user }}"

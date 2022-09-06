@@ -1,0 +1,17 @@
+---
+- name: Check if lando is installed
+  command: dpkg-query -W lando
+  register: my_package_check_deb
+  failed_when: my_package_check_deb.rc > 1
+  changed_when: my_package_check_deb.rc == 1
+
+- name: Download lando
+  get_url:
+    url="https://files.lando.dev/installer/lando-x64-stable.deb"
+    dest="/tmp/lando.deb"
+  when: my_package_check_deb.rc == 1
+
+- name: Install lando
+  apt: deb="/tmp/lando.deb"
+  become: true
+  when: my_package_check_deb.rc == 1
