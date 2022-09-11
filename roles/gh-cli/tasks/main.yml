@@ -1,0 +1,15 @@
+---
+- name: Add gpg key for GitHub CLI
+  ansible.builtin.apt_key:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    state: present
+- name: Install apache gh
+  ansible.builtin.apt:
+    name: gh
+    update_cache: yes
+- name: Login to GITHUB CLI
+  ansible.builtin.shell:
+    cmd: |
+      echo "{{ github_token }}" | gh auth login --with-token
+  become: yes
+  become_user: "{{ new_user }}"

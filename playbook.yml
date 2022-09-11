@@ -20,6 +20,7 @@
     - starship
     - dotfiles
     - terminus
+    - gh-cli
     - cleanup
     - geerlingguy.firewall
     - cyberteam
