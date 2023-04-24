@@ -11,7 +11,7 @@ code_server_password: "{{ upassword }}"
 code_server_user: "{{ new_user }}"
 code_server_port: "8080"
 
-php_version: '7.4'
+php_version: '8.1'
 php_enable_webserver: false
 php_packages:
   - php{{ php_version }}-common
@@ -21,7 +21,6 @@ php_packages:
   - php{{ php_version }}-curl
   - php{{ php_version }}-gd
   - php{{ php_version }}-imap
-  - php{{ php_version }}-json
   - php{{ php_version }}-opcache
   - php{{ php_version }}-xml
   - php{{ php_version }}-mbstring

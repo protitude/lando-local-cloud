@@ -14,7 +14,7 @@
     - geerlingguy.composer
     - geerlingguy.nodejs
     - secure
-    - pallxk.code_server
+    #- pallxk.code_server
     - oefenweb.fail2ban
     - gantsign.oh-my-zsh
     - starship
