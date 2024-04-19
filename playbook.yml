@@ -21,6 +21,7 @@
     - dotfiles
     - terminus
     - gh-cli
+    #- artis3n.tailscale
     - cleanup
     - geerlingguy.firewall
     - cyberteam

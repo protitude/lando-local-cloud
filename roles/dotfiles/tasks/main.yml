@@ -16,5 +16,5 @@
   register: register_dotfiles_bundle
 - name: Run setup script in dotfiles
   ansible.builtin.shell:
-    cmd: chown -R {{ new_user }}:{{ new_user }} /home/{{ new_user }}/dotfiles && echo /home/{{ new_user}}/dotfiles/setup.sh lando >> /home/{{ new_user }}/.zshrc
+    cmd: chown -R {{ new_user }}:{{ new_user }} /home/{{ new_user }}/dotfiles && echo /home/{{ new_user}}/dotfiles/setup.sh linode >> /home/{{ new_user }}/.zshrc
   when: not register_dotfiles_bundle.stat.exists

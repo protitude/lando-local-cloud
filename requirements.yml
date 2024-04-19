@@ -8,6 +8,7 @@ roles:
   - geerlingguy.php-versions
   - geerlingguy.composer
   - geerlingguy.firewall
+  - artis3n.tailscale
   - pallxk.code_server
   - oefenweb.fail2ban
   - gantsign.oh-my-zsh

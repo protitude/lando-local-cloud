@@ -1,4 +1,15 @@
 ---
+- name: Update user when user exists
+  user:
+    name: "{{ new_user }}"
+    groups: # Empty by default, here we give it some groups
+      - docker
+      - sudo
+    state: present
+    shell: /bin/bash       # Defaults to /bin/bash
+  tags:
+    - user_update
+
 - name: Create a login user
   user:
     name: "{{ new_user }}"
@@ -10,14 +21,20 @@
     shell: /bin/bash       # Defaults to /bin/bash
     system: no             # Defaults to no
     createhome: yes        # Defaults to yes
+  tags:
+    - user_create
 
 - name: Create .ssh directory
   file:
     path: /home/{{ new_user }}/.ssh
     state: directory
+  tags:
+    - user_create
 
 - name: Set chown on dir
   file: dest=/home/{{ new_user }}/.ssh owner={{ new_user }} group={{ new_user }} recurse=yes
+  tags:
+    - user_create
 
 - name: Copy authorized_keys file with owner
   ansible.builtin.copy:
@@ -26,20 +43,30 @@
     owner: "{{ new_user }}"
     group: "{{ new_user }}"
     remote_src: yes
+  tags:
+    - user_create
 
 - name: Disable root login over SSH
   lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
+  tags:
+    - user_create
 
 - name: Disable password login
   lineinfile: dest=/etc/ssh/sshd_config regexp="^PasswordAuthentication" line="PasswordAuthentication no" state=present
+  tags:
+    - user_create
 
 - name: restart sshd
   service:
     name: sshd
     state: restarted
+  tags:
+    - user_create
 
 - name: Restart docker after firewall install.
   ansible.builtin.systemd:
     name: docker
     state: restarted
     daemon_reload: yes
+  tags:
+    - user_create
